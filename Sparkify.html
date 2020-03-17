@@ -13017,64 +13017,6 @@ ul.typeahead-list  > li > a.pull-right {
 .highlight .vm { color: #19177C } /* Name.Variable.Magic */
 .highlight .il { color: #666666 } /* Literal.Number.Integer.Long */
     </style>
-<style type="text/css">
-    
-/* Temporary definitions which will become obsolete with Notebook release 5.0 */
-.ansi-black-fg { color: #3E424D; }
-.ansi-black-bg { background-color: #3E424D; }
-.ansi-black-intense-fg { color: #282C36; }
-.ansi-black-intense-bg { background-color: #282C36; }
-.ansi-red-fg { color: #E75C58; }
-.ansi-red-bg { background-color: #E75C58; }
-.ansi-red-intense-fg { color: #B22B31; }
-.ansi-red-intense-bg { background-color: #B22B31; }
-.ansi-green-fg { color: #00A250; }
-.ansi-green-bg { background-color: #00A250; }
-.ansi-green-intense-fg { color: #007427; }
-.ansi-green-intense-bg { background-color: #007427; }
-.ansi-yellow-fg { color: #DDB62B; }
-.ansi-yellow-bg { background-color: #DDB62B; }
-.ansi-yellow-intense-fg { color: #B27D12; }
-.ansi-yellow-intense-bg { background-color: #B27D12; }
-.ansi-blue-fg { color: #208FFB; }
-.ansi-blue-bg { background-color: #208FFB; }
-.ansi-blue-intense-fg { color: #0065CA; }
-.ansi-blue-intense-bg { background-color: #0065CA; }
-.ansi-magenta-fg { color: #D160C4; }
-.ansi-magenta-bg { background-color: #D160C4; }
-.ansi-magenta-intense-fg { color: #A03196; }
-.ansi-magenta-intense-bg { background-color: #A03196; }
-.ansi-cyan-fg { color: #60C6C8; }
-.ansi-cyan-bg { background-color: #60C6C8; }
-.ansi-cyan-intense-fg { color: #258F8F; }
-.ansi-cyan-intense-bg { background-color: #258F8F; }
-.ansi-white-fg { color: #C5C1B4; }
-.ansi-white-bg { background-color: #C5C1B4; }
-.ansi-white-intense-fg { color: #A1A6B2; }
-.ansi-white-intense-bg { background-color: #A1A6B2; }
-
-.ansi-bold { font-weight: bold; }
-
-    </style>
-<style type="text/css">
-    body[data-notebook-name] > #header #header-container:not(.show-panel), /* body has data-notebook-name attribute when 
-a notebook is open. this rule won't be applied when the notebook is not open (in 404 view for example) */
-body[data-notebook-name] #menubar-container #maintoolbar:not(.show-panel),
-body[data-notebook-name] #menubar-container ul.navbar-nav:not(.show-panel) {
-  display: none;
-}
-
-#menubar.only-panel #menus.navbar-default {
-    background: #fff;
-    border-color: #fff;
-}
-
-.toolbar.with-statusbar{
-    margin-top: 3px;
-    margin-bottom: 0;
-}
-
-    </style>
 
 
 <style type="text/css">
@@ -13108,7 +13050,7 @@ div#notebook {
 
 <!-- Loading mathjax macro -->
 <!-- Load mathjax -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS_HTML"></script>
     <!-- MathJax configuration -->
     <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
@@ -13135,34 +13077,74 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Sparkify-Project-Workspace">Sparkify Project Workspace<a class="anchor-link" href="#Sparkify-Project-Workspace">&#182;</a></h1><p>This workspace contains a tiny subset (128MB) of the full dataset available (12GB). Feel free to use this workspace to build your project, or to explore a smaller subset with Spark before deploying your cluster on the cloud. Instructions for setting up your Spark cluster is included in the last lesson of the Extracurricular Spark Course content.</p>
-<p>You can follow the steps below to guide your data analysis and model building portion of this project.</p>
+<h1 id="Sparkify-Project">Sparkify Project<a class="anchor-link" href="#Sparkify-Project">&#182;</a></h1><p>In this notebook we will be looking at a Sparkify customer event data which includes 286,500 events for the fictional song service.</p>
+<p>We are looking to answer the below questions:</p>
+<ol>
+<li>Can we predict that a user will churn?  Churn is when a customer downgrades or cancels their service.  We want to avoid this if at all possible by identifying users in danger of churn and offering them special deals or the like.</li>
+<li>How can we best make this prediction?  We will evaluate many options to perform this prediction and pick what works best.</li>
+</ol>
+<p>We will be following the CRISP-DM process throughout. This process involves the below phases for this project:</p>
+<ol>
+<li>Business Understanding</li>
+<li>Data Understanding</li>
+<li>Prepare Data</li>
+<li>Data Modeling</li>
+<li>Evaluate the Results</li>
+</ol>
+<p>We will annotate the section for each phase as we move along.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="CRISP-DM:-Business-Understanding">CRISP-DM: Business Understanding<a class="anchor-link" href="#CRISP-DM:-Business-Understanding">&#182;</a></h1><p>Churn is challenging and costly for most businesses.  These companies actively look for ways to avoid churn and retain their customers for as long as possible.  Subscription services like Netflix, AT&amp;T, and others are all very concerned with churn.  If they could predict which customers would churn, they would be able to target offers to them to better retain them before the churn occurs.</p>
+<p>Reference articles:</p>
+<ol>
+<li>Amaresan, Swetha "What is Customer Churn?"  <a href="https://blog.hubspot.com/service/what-is-customer-churn">https://blog.hubspot.com/service/what-is-customer-churn</a></li>
+<li>Stec, Carly "How to Reduce Customer Churn"  <a href="https://blog.hubspot.com/service/how-to-reduce-customer-churn">https://blog.hubspot.com/service/how-to-reduce-customer-churn</a></li>
+<li>Orac, Roman "Churn prediction"  <a href="https://towardsdatascience.com/churn-prediction-770d6cb582a5">https://towardsdatascience.com/churn-prediction-770d6cb582a5</a></li>
+</ol>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="CRISP-DM:-Data-Understanding">CRISP-DM: Data Understanding<a class="anchor-link" href="#CRISP-DM:-Data-Understanding">&#182;</a></h1><p>The data we are looking at involves the Sparkify music service user event data.  Each row represents an event.  An event is when the user does something with the app like playing the next song, visiting the home page, changing their settings, or subscribing for the service.  The events are tied to the users and have a timestamp along with other song information as well.</p>
+<p>Based on this data, we would like to predict the users who will churn.</p>
+<p>Let's read in the data and take a look. There is one json data file involved that contains all the user's actions on the platform.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[71]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># import libraries</span>
-<span class="kn">from</span> <span class="nn">pyspark.sql</span> <span class="k">import</span> <span class="n">SparkSession</span>
-<span class="kn">from</span> <span class="nn">pyspark.sql.functions</span> <span class="k">import</span> <span class="n">udf</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="n">avg</span>
-<span class="kn">from</span> <span class="nn">pyspark.sql.types</span> <span class="k">import</span> <span class="n">StringType</span>
-<span class="kn">from</span> <span class="nn">pyspark.sql.types</span> <span class="k">import</span> <span class="n">IntegerType</span>
-<span class="kn">from</span> <span class="nn">pyspark.sql.functions</span> <span class="k">import</span> <span class="n">desc</span>
-<span class="kn">from</span> <span class="nn">pyspark.sql.functions</span> <span class="k">import</span> <span class="n">asc</span>
-<span class="kn">from</span> <span class="nn">pyspark.sql.functions</span> <span class="k">import</span> <span class="nb">sum</span> <span class="k">as</span> <span class="n">Fsum</span>
-<span class="kn">from</span> <span class="nn">pyspark.sql.functions</span> <span class="k">import</span> <span class="n">isnan</span>
+<span class="c1">#pyspark</span>
+<span class="kn">from</span> <span class="nn">pyspark.sql</span> <span class="kn">import</span> <span class="n">SparkSession</span>
+<span class="kn">from</span> <span class="nn">pyspark.sql.functions</span> <span class="kn">import</span> <span class="n">udf</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="n">avg</span>
+<span class="kn">from</span> <span class="nn">pyspark.sql.types</span> <span class="kn">import</span> <span class="n">StringType</span>
+<span class="kn">from</span> <span class="nn">pyspark.sql.types</span> <span class="kn">import</span> <span class="n">IntegerType</span>
+<span class="kn">from</span> <span class="nn">pyspark.sql.functions</span> <span class="kn">import</span> <span class="n">desc</span>
+<span class="kn">from</span> <span class="nn">pyspark.sql.functions</span> <span class="kn">import</span> <span class="n">asc</span>
+<span class="kn">from</span> <span class="nn">pyspark.sql.functions</span> <span class="kn">import</span> <span class="nb">sum</span> <span class="k">as</span> <span class="n">Fsum</span>
+<span class="kn">from</span> <span class="nn">pyspark.sql.functions</span> <span class="kn">import</span> <span class="n">isnan</span>
 
-<span class="kn">from</span> <span class="nn">sklearn</span> <span class="k">import</span> <span class="n">preprocessing</span>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="k">import</span> <span class="n">train_test_split</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="k">import</span> <span class="n">classification_report</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="k">import</span> <span class="n">f1_score</span><span class="p">,</span> <span class="n">make_scorer</span>
+<span class="c1"># scikit-learn</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">preprocessing</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">classification_report</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">f1_score</span><span class="p">,</span> <span class="n">make_scorer</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">GridSearchCV</span>
 
+<span class="c1"># miscellaneous</span>
 <span class="kn">import</span> <span class="nn">datetime</span>
-
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
@@ -13194,7 +13176,8 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Load-and-Clean-Dataset">Load and Clean Dataset<a class="anchor-link" href="#Load-and-Clean-Dataset">&#182;</a></h1><p>In this workspace, the mini-dataset file is <code>mini_sparkify_event_data.json</code>. Load and clean the dataset, checking for invalid or missing data - for example, records without userids or sessionids.</p>
+<h3 id="Let's-load-the-data">Let's load the data<a class="anchor-link" href="#Let's-load-the-data">&#182;</a></h3><p>We are using the mini dataset and not the s3 based larger dataset that can only be used on the EMR cluster.</p>
+<p>Note we tried using the larger dataset without the EMR cluster but this was not possible with the platform we had.</p>
 
 </div>
 </div>
@@ -13204,7 +13187,17 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;mini_sparkify_event_data.json&quot;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># load the data</span>
+<span class="n">use_full_dataset</span> <span class="o">=</span> <span class="kc">False</span>
+
+<span class="c1"># either load the full dataset or the smaller subset</span>
+<span class="k">if</span> <span class="n">use_full_dataset</span><span class="p">:</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;s3n://udacity-dsnd/sparkify/sparkify_event_data.json&#39;</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;mini_sparkify_event_data.json&#39;</span>
+    <span class="c1">#path = &#39;s3n://udacity-dsnd/sparkify/mini_sparkify_event_data.json&#39;</span>
+    
+<span class="c1"># read the json data</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">read</span><span class="o">.</span><span class="n">json</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 </pre></div>
 
@@ -13212,6 +13205,22 @@ div#notebook {
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Let's-take-a-look-at-the-schema">Let's take a look at the schema<a class="anchor-link" href="#Let's-take-a-look-at-the-schema">&#182;</a></h3><p>Here you can see what each user event contains.  We will not need to use all these fields for our prediction so we will analyze which are the most relevant fields for our use.</p>
+<p>At first glance it seems that the following are the most important:</p>
+<ol>
+<li>gender</li>
+<li>location</li>
+<li>page</li>
+<li>ts</li>
+<li>userId</li>
+</ol>
+
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
@@ -13263,12 +13272,20 @@ div#notebook {
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Let's-experiment-with-some-sql-queries">Let's experiment with some sql queries<a class="anchor-link" href="#Let's-experiment-with-some-sql-queries">&#182;</a></h3>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">createOrReplaceTempView</span><span class="p">(</span><span class="s2">&quot;df_table&quot;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># create the view</span>
+<span class="n">df</span><span class="o">.</span><span class="n">createOrReplaceTempView</span><span class="p">(</span><span class="s2">&quot;df_table&quot;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13281,7 +13298,8 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Show one event for one user</span>
+<span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;</span>
 <span class="s1">            SELECT *</span>
 <span class="s1">            FROM df_table</span>
 <span class="s1">            WHERE userId == &#39;132&#39;</span>
@@ -13322,7 +13340,8 @@ only showing top 1 row
 <div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Show one cancellation event</span>
+<span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;</span>
 <span class="s1">            SELECT *</span>
 <span class="s1">            FROM df_table</span>
 <span class="s1">            WHERE page == &#39;Cancellation Confirmation&#39;</span>
@@ -13358,12 +13377,23 @@ only showing top 1 row
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Let's-take-a-look-at-the-fields-that-are-enumerations">Let's take a look at the fields that are enumerations<a class="anchor-link" href="#Let's-take-a-look-at-the-fields-that-are-enumerations">&#182;</a></h3><p>Understanding the enumerated fields will be important for building our data model</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;gender&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">distinct</span><span class="p">()</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># show the genders</span>
+<span class="n">df</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;gender&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">distinct</span><span class="p">()</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># show the page types</span>
 <span class="n">df</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;page&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">distinct</span><span class="p">()</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
 </pre></div>
 
@@ -13429,7 +13459,10 @@ only showing top 1 row
 <div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;status&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">distinct</span><span class="p">()</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># show the status codes, these look like web statuses</span>
+<span class="n">df</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;status&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">distinct</span><span class="p">()</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># show some sample user id&#39;s</span>
 <span class="n">df</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;userId&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">distinct</span><span class="p">()</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 
@@ -13479,7 +13512,8 @@ only showing top 5 rows
 <div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># just show a sample row</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -13507,12 +13541,20 @@ only showing top 5 rows
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="There-are-286,500-events-with-18-pieces-of-information-for-each">There are 286,500 events with 18 pieces of information for each<a class="anchor-link" href="#There-are-286,500-events-with-18-pieces-of-information-for-each">&#182;</a></h3>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">((</span><span class="n">df</span><span class="o">.</span><span class="n">count</span><span class="p">(),</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># show the size of the data</span>
+<span class="nb">print</span><span class="p">((</span><span class="n">df</span><span class="o">.</span><span class="n">count</span><span class="p">(),</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)))</span>
 </pre></div>
 
     </div>
@@ -13538,6 +13580,21 @@ only showing top 5 rows
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Let's-look-for-null-data">Let's look for null data<a class="anchor-link" href="#Let's-look-for-null-data">&#182;</a></h3><p>Based on the below there are quite a few null values, but let's see if they matter to us.  Based on the fields we found important, let's see how many nulls are in those columns:</p>
+<ol>
+<li>gender:  8,346 nulls</li>
+<li>location:  8,346 nulls</li>
+<li>page:  0</li>
+<li>ts:  0</li>
+<li>userId:  0</li>
+</ol>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[12]:</div>
@@ -13545,20 +13602,8 @@ only showing top 5 rows
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pyspark.sql.functions</span> <span class="k">as</span> <span class="nn">F</span>
 
-<span class="n">df_agg</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="n">F</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">when</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">c</span><span class="p">),</span> <span class="n">c</span><span class="p">))</span><span class="o">.</span><span class="n">alias</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">])</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_agg</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="c1"># this will show the number of nulls in each column</span>
+<span class="n">df</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="n">F</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">when</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">c</span><span class="p">),</span> <span class="n">c</span><span class="p">))</span><span class="o">.</span><span class="n">alias</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">])</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -13589,12 +13634,61 @@ only showing top 5 rows
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Looking-at-the-nulls-for-gender-shows-that-the-userId-is-blank-for-these-rows,-but-not-null">Looking at the nulls for gender shows that the userId is blank for these rows, but not null<a class="anchor-link" href="#Looking-at-the-nulls-for-gender-shows-that-the-userId-is-blank-for-these-rows,-but-not-null">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">gender</span><span class="p">))</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>+------+----------+---------+------+-------------+--------+------+-----+--------+------+-----+------------+---------+----+------+-------------+---------+------+
+|artist|      auth|firstName|gender|itemInSession|lastName|length|level|location|method| page|registration|sessionId|song|status|           ts|userAgent|userId|
++------+----------+---------+------+-------------+--------+------+-----+--------+------+-----+------------+---------+----+------+-------------+---------+------+
+|  null|Logged Out|     null|  null|          100|    null|  null| free|    null|   GET| Home|        null|        8|null|   200|1538355745000|     null|      |
+|  null|Logged Out|     null|  null|          101|    null|  null| free|    null|   GET| Help|        null|        8|null|   200|1538355807000|     null|      |
+|  null|Logged Out|     null|  null|          102|    null|  null| free|    null|   GET| Home|        null|        8|null|   200|1538355841000|     null|      |
+|  null|Logged Out|     null|  null|          103|    null|  null| free|    null|   PUT|Login|        null|        8|null|   307|1538355842000|     null|      |
+|  null|Logged Out|     null|  null|            2|    null|  null| free|    null|   GET| Home|        null|      240|null|   200|1538356678000|     null|      |
++------+----------+---------+------+-------------+--------+------+-----+--------+------+-----+------------+---------+----+------+-------------+---------+------+
+only showing top 5 rows
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_valid</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">how</span><span class="o">=</span><span class="s1">&#39;any&#39;</span><span class="p">,</span> <span class="n">subset</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;userId&#39;</span><span class="p">,</span> <span class="s1">&#39;sessionId&#39;</span><span class="p">])</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># just in case, let&#39;s drop any rows with null userId&#39;s</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">how</span><span class="o">=</span><span class="s1">&#39;any&#39;</span><span class="p">,</span> <span class="n">subset</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;userId&#39;</span><span class="p">])</span>
 </pre></div>
 
     </div>
@@ -13602,13 +13696,19 @@ only showing top 5 rows
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="ok-there-were-no-null-userId's-so-there-is-no-effect-so-far">ok there were no null userId's so there is no effect so far<a class="anchor-link" href="#ok-there-were-no-null-userId's-so-there-is-no-effect-so-far">&#182;</a></h3>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">count</span><span class="p">())</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">df_valid</span><span class="o">.</span><span class="n">count</span><span class="p">())</span>
 </pre></div>
 
     </div>
@@ -13626,7 +13726,6 @@ only showing top 5 rows
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>286500
-286500
 </pre>
 </div>
 </div>
@@ -13635,13 +13734,63 @@ only showing top 5 rows
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="let's-see-how-many-events-have-a-blank-userId">let's see how many events have a blank userId<a class="anchor-link" href="#let's-see-how-many-events-have-a-blank-userId">&#182;</a></h3><p>Looks like this is the same set of 8,346 events.</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_valid</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;userId&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">df_valid</span><span class="o">.</span><span class="n">count</span><span class="p">())</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">userId</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[16]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>8346</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="let's-filter-out-the-blank-userId-events-as-they-are-not-useful-for-our-prediction">let's filter out the blank userId events as they are not useful for our prediction<a class="anchor-link" href="#let's-filter-out-the-blank-userId-events-as-they-are-not-useful-for-our-prediction">&#182;</a></h3><p>Now we have 278,154 events left.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># filter out the blanks</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;userId&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">count</span><span class="p">())</span>
 </pre></div>
 
     </div>
@@ -13667,25 +13816,10 @@ only showing top 5 rows
 </div>
 
 </div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[17]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">df_valid</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Exploratory-Data-Analysis">Exploratory Data Analysis<a class="anchor-link" href="#Exploratory-Data-Analysis">&#182;</a></h1><p>When you're working with the full dataset, perform EDA by loading a small subset of the data and doing basic manipulations within Spark. In this workspace, you are already provided a small subset of data you can explore.</p>
-<h3 id="Define-Churn">Define Churn<a class="anchor-link" href="#Define-Churn">&#182;</a></h3><p>Once you've done some preliminary analysis, create a column <code>Churn</code> to use as the label for your model. I suggest using the <code>Cancellation Confirmation</code> events to define your churn, which happen for both paid and free users. As a bonus task, you can also look into the <code>Downgrade</code> events.</p>
-<h3 id="Explore-Data">Explore Data<a class="anchor-link" href="#Explore-Data">&#182;</a></h3><p>Once you've defined churn, perform some exploratory data analysis to observe the behavior for users who stayed vs users who churned. You can start by exploring aggregates on these two groups of users, observing how much of a specific action they experienced per a certain time unit or number of songs played.</p>
+<h3 id="there-are-no-gender-or-location-nulls-any-longer">there are no gender or location nulls any longer<a class="anchor-link" href="#there-are-no-gender-or-location-nulls-any-longer">&#182;</a></h3><p>Looks like we killed two birds with one stone.  :-)</p>
 
 </div>
 </div>
@@ -13693,6 +13827,47 @@ only showing top 5 rows
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">gender</span><span class="p">))</span><span class="o">.</span><span class="n">count</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">location</span><span class="p">))</span><span class="o">.</span><span class="n">count</span><span class="p">())</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>0
+0
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Let's-take-a-look-at-what-a-cancellation-looks-like">Let's take a look at what a cancellation looks like<a class="anchor-link" href="#Let's-take-a-look-at-what-a-cancellation-looks-like">&#182;</a></h3><p>We will also look at a user who cancelled and what his event stream looked like to see what a typical user lifecycle looks like.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s2">&quot;page = &#39;Cancellation Confirmation&#39;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
@@ -13733,7 +13908,7 @@ only showing top 5 rows
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">select</span><span class="p">([</span><span class="s1">&#39;userId&#39;</span><span class="p">,</span> <span class="s1">&#39;gender&#39;</span><span class="p">,</span> <span class="s1">&#39;level&#39;</span><span class="p">,</span> <span class="s1">&#39;location&#39;</span><span class="p">,</span> <span class="s1">&#39;ts&#39;</span><span class="p">,</span> <span class="s1">&#39;artist&#39;</span><span class="p">,</span> <span class="s1">&#39;page&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">userId</span> <span class="o">==</span> <span class="s1">&#39;18&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
@@ -13749,7 +13924,7 @@ only showing top 5 rows
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[19]:</div>
+    <div class="prompt output_prompt">Out[20]:</div>
 
 
 
@@ -14278,7 +14453,7 @@ only showing top 5 rows
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[20]:</div>
+<div class="prompt input_prompt">In&nbsp;[21]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">select</span><span class="p">([</span><span class="s1">&#39;page&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">userId</span> <span class="o">==</span> <span class="s1">&#39;18&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
@@ -14294,7 +14469,7 @@ only showing top 5 rows
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[20]:</div>
+    <div class="prompt output_prompt">Out[21]:</div>
 
 
 
@@ -14824,13 +14999,7 @@ only showing top 5 rows
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Feature-Engineering">Feature Engineering<a class="anchor-link" href="#Feature-Engineering">&#182;</a></h1><p>Once you've familiarized yourself with the data, build out the features you find promising to train your model on. To work with the full dataset, you can follow the following steps.</p>
-<ul>
-<li>Write a script to extract the necessary features from the smaller subset of data</li>
-<li>Ensure that your script is scalable, using the best practices discussed in Lesson 3</li>
-<li>Try your script on the full data set, debugging your script if necessary</li>
-</ul>
-<p>If you are working in the classroom workspace, you can just extract features based on the small subset of data contained here. Be sure to transfer over this work to the larger dataset when you work on your Spark cluster.</p>
+<h1 id="CRISP-DM:-Prepare-Data">CRISP-DM: Prepare Data<a class="anchor-link" href="#CRISP-DM:-Prepare-Data">&#182;</a></h1><p>We will now look even more closely at the data from the event log and prepare it for our use with features and labels.</p>
 
 </div>
 </div>
@@ -14838,25 +15007,45 @@ only showing top 5 rows
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Features">Features<a class="anchor-link" href="#Features">&#182;</a></h2><h3 id="Inputs">Inputs<a class="anchor-link" href="#Inputs">&#182;</a></h3><p>Thumbs Up total
-Thumbs Down total
-Add to Playlist total
-Add Friend total
-Error total
-Next Song count per day for last 7 days
-Next Song count per hour on average over all time</p>
-<h3 id="Prediction">Prediction<a class="anchor-link" href="#Prediction">&#182;</a></h3><p>Churn 0 or 1</p>
+<h2 id="Features">Features<a class="anchor-link" href="#Features">&#182;</a></h2><p>Based on our data analysis we will be using the following features in order to predict the churn.  Included is an analysis of why this data is important and should be a feature.</p>
+<h3 id="Inputs">Inputs<a class="anchor-link" href="#Inputs">&#182;</a></h3><ol>
+<li>Thumbs Up total.  We will count how many times the user applied a thumbs up to a song.  The more the user applies these, the more sticky they should become to the service since the service knows more and more about them.</li>
+<li>Thumbs Down total.  We will count how many times the user applied a thumbs down to a song.  Again, this should be indicative of the stickiness of the user but could also indicate that the user is not satisfied and/or the recommendation system used by the service is not working very well.</li>
+<li>Add to Playlist total.  We will count how many times a user added to a playlist.  Again, a playlist is a service feature that helps make users more sticky and will help reduce churn.</li>
+<li>Add Friend total.  We will count how many times a user added a friend.  Due to network effect, the more friends you have on a service, the more likely you are to stay with that service, thus reducing churn.</li>
+<li>Error total.  We will count how many errors the user encountered.  Technical difficulties would turn off a user and make it more likely they would churn.</li>
+<li>Next Song count per day for last 7 days.  We will count how many songs the user has played per day for the last 7 days of their training data set.  The theory is that if the user is active they should not churn, but if the user shows signs of slowing down their usage of the service recently, they would be more likely to churn.</li>
+<li>Next Song count per hour bucket on average over all time.  We will count how many songs the user has played per hour bucket over the training data set.  An hour bucket is a grouping of hours so that songs can be summed over this time window.  If you have 8 hour buckets, then each bucket represents 3 contiguous hours to count songs over.  The theory here is that by looking at the song playing frequency over the course of a day we can categorize users and find users that are more alike to each other.  This will lead to a better prediction.</li>
+</ol>
+<h3 id="Prediction">Prediction<a class="anchor-link" href="#Prediction">&#182;</a></h3><ol>
+<li>Churn 0 or 1.  0 indicates no churn while 1 indicates churn.  For the training data any user who has a 'Cancellation Confirmation' event will be defined as having churned.</li>
+</ol>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="We-will-start-by-getting-the-data-we-need-from-the-larger-data-set">We will start by getting the data we need from the larger data set<a class="anchor-link" href="#We-will-start-by-getting-the-data-we-need-from-the-larger-data-set">&#182;</a></h3><p>We decided that userId, gender, and location were important for prediction so we will grab those.  For gender and location we will convert those into category codes which are helpful for training models.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[21]:</div>
+<div class="prompt input_prompt">In&nbsp;[22]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># get list of users</span>
-<span class="n">users</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;userId&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">distinct</span><span class="p">()</span><span class="o">.</span><span class="n">toPandas</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># get list of users along with their gender and location</span>
+<span class="n">users</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;userId&#39;</span><span class="p">,</span> <span class="s1">&#39;gender&#39;</span><span class="p">,</span> <span class="s1">&#39;location&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">distinct</span><span class="p">()</span><span class="o">.</span><span class="n">toPandas</span><span class="p">()</span>
+
+<span class="c1"># convert gender to category code</span>
+<span class="n">users</span><span class="p">[</span><span class="s1">&#39;gender&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">users</span><span class="p">[</span><span class="s1">&#39;gender&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;category&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">codes</span>
+
+<span class="c1"># convert location to category code</span>
+<span class="n">users</span><span class="p">[</span><span class="s1">&#39;location&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">users</span><span class="p">[</span><span class="s1">&#39;location&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;category&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">codes</span>
+
 <span class="nb">print</span><span class="p">(</span><span class="n">users</span><span class="o">.</span><span class="n">count</span><span class="p">())</span>
 <span class="n">users</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
@@ -14875,7 +15064,9 @@ Next Song count per hour on average over all time</p>
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>userId    225
+<pre>userId      225
+gender      225
+location    225
 dtype: int64
 </pre>
 </div>
@@ -14883,7 +15074,7 @@ dtype: int64
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[21]:</div>
+    <div class="prompt output_prompt">Out[22]:</div>
 
 
 
@@ -14907,28 +15098,40 @@ dtype: int64
     <tr style="text-align: right;">
       <th></th>
       <th>userId</th>
+      <th>gender</th>
+      <th>location</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
-      <td>100010</td>
+      <td>100021</td>
+      <td>1</td>
+      <td>26</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>200002</td>
+      <td>139</td>
+      <td>1</td>
+      <td>56</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>125</td>
+      <td>41</td>
+      <td>0</td>
+      <td>58</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>51</td>
+      <td>72</td>
+      <td>0</td>
+      <td>82</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>124</td>
+      <td>200016</td>
+      <td>0</td>
+      <td>9</td>
     </tr>
   </tbody>
 </table>
@@ -14941,9 +15144,17 @@ dtype: int64
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Now-let's-get-the-total-user-activity-counts-for-each-user">Now let's get the total user activity counts for each user<a class="anchor-link" href="#Now-let's-get-the-total-user-activity-counts-for-each-user">&#182;</a></h3><p>This will be useful later as we scale the per hour and per day activity for each user.  Stay tuned.</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[22]:</div>
+<div class="prompt input_prompt">In&nbsp;[23]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># get list of page counts overall</span>
@@ -14962,7 +15173,7 @@ dtype: int64
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[22]:</div>
+    <div class="prompt output_prompt">Out[23]:</div>
 
 
 
@@ -15024,9 +15235,17 @@ dtype: int64
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Let's-also-get-the-page-counts-per-page-type-for-each-user">Let's also get the page counts per page type for each user<a class="anchor-link" href="#Let's-also-get-the-page-counts-per-page-type-for-each-user">&#182;</a></h3><p>We will need this to distinguish between the various activity types we will be using for prediction.</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[23]:</div>
+<div class="prompt input_prompt">In&nbsp;[24]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># get list of page counts by page type</span>
@@ -15044,7 +15263,7 @@ dtype: int64
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[23]:</div>
+    <div class="prompt output_prompt">Out[24]:</div>
 
 
 
@@ -15114,25 +15333,21 @@ dtype: int64
 </div>
 
 </div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[24]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">get_hour</span> <span class="o">=</span> <span class="n">udf</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">x</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">)</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span> <span class="n">IntegerType</span><span class="p">())</span>
-</pre></div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Now-let's-get-data-related-to-the-songs-played-per-hour">Now let's get data related to the songs played per hour<a class="anchor-link" href="#Now-let's-get-data-related-to-the-songs-played-per-hour">&#182;</a></h3><p>In order to do that we need to decode the timestamp into the hour it belongs to and then add a column for the decoded hour</p>
 
-    </div>
 </div>
 </div>
-
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[25]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_new</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">withColumn</span><span class="p">(</span><span class="s1">&#39;hour&#39;</span><span class="p">,</span> <span class="n">get_hour</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">ts</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># extract the hour from a timestamp</span>
+<span class="n">get_hour</span> <span class="o">=</span> <span class="n">udf</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">x</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">)</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span> <span class="n">IntegerType</span><span class="p">())</span>
 </pre></div>
 
     </div>
@@ -15145,7 +15360,23 @@ dtype: int64
 <div class="prompt input_prompt">In&nbsp;[26]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">hour_counts</span> <span class="o">=</span> <span class="n">df_new</span><span class="o">.</span><span class="n">groupBy</span><span class="p">(</span><span class="s1">&#39;userId&#39;</span><span class="p">,</span> <span class="s1">&#39;hour&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;*&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">alias</span><span class="p">(</span><span class="s1">&#39;count&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s1">&#39;userId&#39;</span><span class="p">,</span> <span class="s1">&#39;hour&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">toPandas</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># add a column for the hour</span>
+<span class="n">df_new</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">withColumn</span><span class="p">(</span><span class="s1">&#39;hour&#39;</span><span class="p">,</span> <span class="n">get_hour</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">ts</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[27]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># aggregate the user&#39;s activity for each hour of the day</span>
+<span class="c1"># we will use this later</span>
+<span class="n">hour_counts</span> <span class="o">=</span> <span class="n">df_new</span><span class="o">.</span><span class="n">groupBy</span><span class="p">(</span><span class="s1">&#39;userId&#39;</span><span class="p">,</span> <span class="s1">&#39;hour&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;*&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">alias</span><span class="p">(</span><span class="s1">&#39;count&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s1">&#39;userId&#39;</span><span class="p">,</span> <span class="s1">&#39;hour&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">toPandas</span><span class="p">()</span>
 <span class="n">hour_counts</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 
@@ -15159,7 +15390,7 @@ dtype: int64
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[26]:</div>
+    <div class="prompt output_prompt">Out[27]:</div>
 
 
 
@@ -15229,9 +15460,17 @@ dtype: int64
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Now-let's-get-data-related-to-the-songs-played-per-day">Now let's get data related to the songs played per day<a class="anchor-link" href="#Now-let's-get-data-related-to-the-songs-played-per-day">&#182;</a></h3><p>In order to do that we first need to find the start of the event log by finding the lowest timestamp.  From there we will compute the relative day of every other event in the event log.  Once we have the relative days, we can put this data in order for each user so we can use it for prediction.</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[27]:</div>
+<div class="prompt input_prompt">In&nbsp;[28]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># find the lowest timestamp overall</span>
@@ -15245,7 +15484,7 @@ dtype: int64
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[28]:</div>
+<div class="prompt input_prompt">In&nbsp;[29]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># create a column that shows the relative day for the entry</span>
@@ -15259,10 +15498,12 @@ dtype: int64
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[29]:</div>
+<div class="prompt input_prompt">In&nbsp;[30]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">day_counts</span> <span class="o">=</span> <span class="n">df_new</span><span class="o">.</span><span class="n">groupBy</span><span class="p">(</span><span class="s1">&#39;userId&#39;</span><span class="p">,</span> <span class="s1">&#39;rel_day&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;*&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">alias</span><span class="p">(</span><span class="s1">&#39;count&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s1">&#39;userId&#39;</span><span class="p">,</span> <span class="s1">&#39;rel_day&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">toPandas</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># aggregate the user&#39;s activity for each relative day and sort this per user and relative day</span>
+<span class="c1"># we will use this later</span>
+<span class="n">day_counts</span> <span class="o">=</span> <span class="n">df_new</span><span class="o">.</span><span class="n">groupBy</span><span class="p">(</span><span class="s1">&#39;userId&#39;</span><span class="p">,</span> <span class="s1">&#39;rel_day&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;*&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">alias</span><span class="p">(</span><span class="s1">&#39;count&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s1">&#39;userId&#39;</span><span class="p">,</span> <span class="s1">&#39;rel_day&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">toPandas</span><span class="p">()</span>
 <span class="n">day_counts</span> <span class="o">=</span> <span class="n">day_counts</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;userId&#39;</span><span class="p">,</span> <span class="s1">&#39;rel_day&#39;</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">day_counts</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">day_counts</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -15278,7 +15519,7 @@ dtype: int64
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[29]:</div>
+    <div class="prompt output_prompt">Out[30]:</div>
 
 
 
@@ -15348,9 +15589,17 @@ dtype: int64
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Now-we-will-define-our-churn-measure-and-save-it.">Now we will define our churn measure and save it.<a class="anchor-link" href="#Now-we-will-define-our-churn-measure-and-save-it.">&#182;</a></h3><p>We have defined churn as whenever the user performs a confirmed cancellation.  We will extract this data and save it for each user.  0 indicates the user has not churned while 1 indicates the user has churned for training and testing purposes.</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[30]:</div>
+<div class="prompt input_prompt">In&nbsp;[31]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># create churn measure</span>
@@ -15370,7 +15619,7 @@ dtype: int64
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[30]:</div>
+    <div class="prompt output_prompt">Out[31]:</div>
 
 
 
@@ -15434,9 +15683,16 @@ dtype: int64
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Once-we-have-the-churn-defined,-we-will-add-it-to-our-labels-which-we'll-be-trying-to-predict.">Once we have the churn defined, we will add it to our labels which we'll be trying to predict.<a class="anchor-link" href="#Once-we-have-the-churn-defined,-we-will-add-it-to-our-labels-which-we'll-be-trying-to-predict.">&#182;</a></h3>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[31]:</div>
+<div class="prompt input_prompt">In&nbsp;[32]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># create labels with all users</span>
@@ -15468,7 +15724,9 @@ dtype: int64
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>churn    225
+<pre>gender      225
+location    225
+churn       225
 dtype: int64
 </pre>
 </div>
@@ -15476,7 +15734,7 @@ dtype: int64
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[31]:</div>
+    <div class="prompt output_prompt">Out[32]:</div>
 
 
 
@@ -15499,33 +15757,47 @@ dtype: int64
   <thead>
     <tr style="text-align: right;">
       <th></th>
+      <th>gender</th>
+      <th>location</th>
       <th>churn</th>
     </tr>
     <tr>
       <th>userId</th>
       <th></th>
+      <th></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>100010</th>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>200002</th>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>125</th>
+      <th>100021</th>
+      <td>1</td>
+      <td>26</td>
       <td>1</td>
     </tr>
     <tr>
-      <th>51</th>
+      <th>139</th>
       <td>1</td>
+      <td>56</td>
+      <td>0</td>
     </tr>
     <tr>
-      <th>124</th>
+      <th>41</th>
       <td>0</td>
+      <td>58</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>72</th>
+      <td>0</td>
+      <td>82</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>200016</th>
+      <td>0</td>
+      <td>9</td>
+      <td>1</td>
     </tr>
   </tbody>
 </table>
@@ -15538,12 +15810,20 @@ dtype: int64
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Now-we-will-setup-our-features-which-will-be-used-to-predict-with.">Now we will setup our features which will be used to predict with.<a class="anchor-link" href="#Now-we-will-setup-our-features-which-will-be-used-to-predict-with.">&#182;</a></h3><p>We will be taking all the data we identified earlier.  Some of this data can be found in the event log directly.  Features like userId, gender, and location are examples of this.  Other data has to be computed as sums of activity.  We will be using the dataframes we created earlier to populate this feature data.</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[32]:</div>
+<div class="prompt input_prompt">In&nbsp;[33]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># create features with all users</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># create features with all users along with their gender and location code</span>
 <span class="n">features</span> <span class="o">=</span> <span class="n">users</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 
 <span class="c1"># add thumbs up</span>
@@ -15596,173 +15876,15 @@ dtype: int64
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>thumbs_up          220
-thumbs_down        203
-add_to_playlist    215
-add_friend         206
-error              117
-dtype: int64
-(225, 5)
-</pre>
-</div>
-</div>
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[32]:</div>
-
-
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>thumbs_up</th>
-      <th>thumbs_down</th>
-      <th>add_to_playlist</th>
-      <th>add_friend</th>
-      <th>error</th>
-    </tr>
-    <tr>
-      <th>userId</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>100010</th>
-      <td>17.0</td>
-      <td>5.0</td>
-      <td>7.0</td>
-      <td>4.0</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>200002</th>
-      <td>21.0</td>
-      <td>6.0</td>
-      <td>8.0</td>
-      <td>4.0</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>125</th>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>51</th>
-      <td>100.0</td>
-      <td>21.0</td>
-      <td>52.0</td>
-      <td>28.0</td>
-      <td>1.0</td>
-    </tr>
-    <tr>
-      <th>124</th>
-      <td>171.0</td>
-      <td>41.0</td>
-      <td>118.0</td>
-      <td>74.0</td>
-      <td>6.0</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[33]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># add hour counts for each user</span>
-
-<span class="c1"># set up hour windows so the hours can be grouped in buckets instead of the full 24 slots</span>
-<span class="n">hour_window</span> <span class="o">=</span> <span class="mi">3</span>
-<span class="n">buckets</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">24</span> <span class="o">/</span> <span class="n">hour_window</span><span class="p">)</span>
-
-<span class="c1"># create zero columns in features for all our hour buckets</span>
-<span class="k">for</span> <span class="n">bucket</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">buckets</span><span class="p">):</span>
-    <span class="n">col_name</span> <span class="o">=</span> <span class="s1">&#39;hour_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">bucket</span><span class="p">)</span>
-    <span class="n">features</span><span class="p">[</span><span class="n">col_name</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
-
-<span class="c1"># go through each of the hours counts we found earlier and fill them in our features</span>
-<span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">hour_counts</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
-    <span class="c1"># find the total song counts for this user so we can use for scaling</span>
-    <span class="n">userId</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;userId&#39;</span><span class="p">]</span>
-    <span class="n">total_count</span> <span class="o">=</span> <span class="n">total_counts</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">userId</span><span class="p">,</span> <span class="s1">&#39;count&#39;</span><span class="p">]</span>
-    
-    <span class="c1"># find the column name to use based on the buckets</span>
-    <span class="n">col_index</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;hour&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">hour_window</span><span class="p">)</span>
-    <span class="n">col_name</span> <span class="o">=</span> <span class="s1">&#39;hour_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">col_index</span><span class="p">)</span>
-    <span class="n">features</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;userId&#39;</span><span class="p">],</span> <span class="n">col_name</span><span class="p">]</span> <span class="o">+=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">total_count</span>
-
-<span class="c1"># fill in any missing data</span>
-<span class="n">features</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="n">features</span><span class="o">.</span><span class="n">count</span><span class="p">())</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">features</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-<span class="n">features</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>thumbs_up          225
+<pre>gender             225
+location           225
+thumbs_up          225
 thumbs_down        225
 add_to_playlist    225
 add_friend         225
 error              225
-hour_0             225
-hour_1             225
-hour_2             225
-hour_3             225
-hour_4             225
-hour_5             225
-hour_6             225
-hour_7             225
 dtype: int64
-(225, 13)
+(225, 7)
 </pre>
 </div>
 </div>
@@ -15792,6 +15914,197 @@ dtype: int64
   <thead>
     <tr style="text-align: right;">
       <th></th>
+      <th>gender</th>
+      <th>location</th>
+      <th>thumbs_up</th>
+      <th>thumbs_down</th>
+      <th>add_to_playlist</th>
+      <th>add_friend</th>
+      <th>error</th>
+    </tr>
+    <tr>
+      <th>userId</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>100021</th>
+      <td>1</td>
+      <td>26</td>
+      <td>11.0</td>
+      <td>5.0</td>
+      <td>7.0</td>
+      <td>7.0</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>139</th>
+      <td>1</td>
+      <td>56</td>
+      <td>18.0</td>
+      <td>5.0</td>
+      <td>13.0</td>
+      <td>6.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>41</th>
+      <td>0</td>
+      <td>58</td>
+      <td>76.0</td>
+      <td>10.0</td>
+      <td>61.0</td>
+      <td>36.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>72</th>
+      <td>0</td>
+      <td>82</td>
+      <td>6.0</td>
+      <td>1.0</td>
+      <td>3.0</td>
+      <td>3.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>200016</th>
+      <td>0</td>
+      <td>9</td>
+      <td>19.0</td>
+      <td>5.0</td>
+      <td>3.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Now-we-will-add-the-counts-by-hour-buckets-to-our-features-list">Now we will add the counts by hour buckets to our features list<a class="anchor-link" href="#Now-we-will-add-the-counts-by-hour-buckets-to-our-features-list">&#182;</a></h3><p>This is a bit tricky as we are using hour buckets.  In our case we used 3hr window buckets, making 8 buckets in total.  We can use the dataframes we created earlier that counted the activity per user per hour and roll these into the hour window buckets.</p>
+<p>We applied a scaling factor for each user by counting the total activity for that user and dividing all counts by that number.  In this way we can identify users that are like each other without requiring them to have the exact same some counts per hour.  This is more normalized data across users.</p>
+<p>We also experimented with having no hourly data in our feature set so we created a parameter to do just that.  In the end, we found that the hourly data was useful for prediction so we have kept that on.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[34]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># add hour counts for each user</span>
+<span class="n">add_hours_features</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="c1"># set up hour windows so the hours can be grouped in buckets instead of the full 24 slots</span>
+<span class="n">hour_window</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">buckets</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">24</span> <span class="o">/</span> <span class="n">hour_window</span><span class="p">)</span>
+
+<span class="c1"># create zero columns in features for all our hour buckets</span>
+<span class="k">for</span> <span class="n">bucket</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">buckets</span><span class="p">):</span>
+    <span class="n">col_name</span> <span class="o">=</span> <span class="s1">&#39;hour_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">bucket</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">add_hours_features</span><span class="p">:</span>
+        <span class="n">features</span><span class="p">[</span><span class="n">col_name</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+<span class="c1"># go through each of the hours counts we found earlier and fill them in our features</span>
+<span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">hour_counts</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="c1"># find the total song counts for this user so we can use for scaling</span>
+    <span class="n">userId</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;userId&#39;</span><span class="p">]</span>
+    <span class="n">total_count</span> <span class="o">=</span> <span class="n">total_counts</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">userId</span><span class="p">,</span> <span class="s1">&#39;count&#39;</span><span class="p">]</span>
+    
+    <span class="c1"># find the column name to use based on the buckets</span>
+    <span class="n">col_index</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;hour&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">hour_window</span><span class="p">)</span>
+    <span class="n">col_name</span> <span class="o">=</span> <span class="s1">&#39;hour_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">col_index</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">add_hours_features</span><span class="p">:</span>
+        <span class="n">features</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;userId&#39;</span><span class="p">],</span> <span class="n">col_name</span><span class="p">]</span> <span class="o">+=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">total_count</span>
+
+<span class="c1"># fill in any missing data</span>
+<span class="n">features</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">features</span><span class="o">.</span><span class="n">count</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">features</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">features</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>gender             225
+location           225
+thumbs_up          225
+thumbs_down        225
+add_to_playlist    225
+add_friend         225
+error              225
+hour_0             225
+hour_1             225
+hour_2             225
+hour_3             225
+hour_4             225
+hour_5             225
+hour_6             225
+hour_7             225
+dtype: int64
+(225, 15)
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[34]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>gender</th>
+      <th>location</th>
       <th>thumbs_up</th>
       <th>thumbs_down</th>
       <th>add_to_playlist</th>
@@ -15821,88 +16134,100 @@ dtype: int64
       <th></th>
       <th></th>
       <th></th>
+      <th></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>100010</th>
-      <td>17.0</td>
+      <th>100021</th>
+      <td>1</td>
+      <td>26</td>
+      <td>11.0</td>
       <td>5.0</td>
       <td>7.0</td>
-      <td>4.0</td>
-      <td>0.0</td>
-      <td>0.010499</td>
-      <td>0.149606</td>
-      <td>0.133858</td>
-      <td>0.141732</td>
-      <td>0.278215</td>
-      <td>0.270341</td>
-      <td>0.015748</td>
+      <td>7.0</td>
+      <td>2.0</td>
+      <td>0.313480</td>
+      <td>0.200627</td>
+      <td>0.169279</td>
+      <td>0.184953</td>
       <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.078370</td>
+      <td>0.053292</td>
     </tr>
     <tr>
-      <th>200002</th>
-      <td>21.0</td>
+      <th>139</th>
+      <td>1</td>
+      <td>56</td>
+      <td>18.0</td>
+      <td>5.0</td>
+      <td>13.0</td>
       <td>6.0</td>
-      <td>8.0</td>
-      <td>4.0</td>
-      <td>0.0</td>
-      <td>0.050633</td>
-      <td>0.000000</td>
-      <td>0.067511</td>
-      <td>0.109705</td>
-      <td>0.122363</td>
-      <td>0.200422</td>
-      <td>0.265823</td>
-      <td>0.183544</td>
-    </tr>
-    <tr>
-      <th>125</th>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.000000</td>
-      <td>1.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-    </tr>
-    <tr>
-      <th>51</th>
-      <td>100.0</td>
-      <td>21.0</td>
-      <td>52.0</td>
-      <td>28.0</td>
       <td>1.0</td>
-      <td>0.129058</td>
-      <td>0.137987</td>
-      <td>0.109984</td>
-      <td>0.100649</td>
-      <td>0.096997</td>
-      <td>0.121347</td>
-      <td>0.155844</td>
-      <td>0.148133</td>
+      <td>0.144420</td>
+      <td>0.240700</td>
+      <td>0.293217</td>
+      <td>0.166302</td>
+      <td>0.037199</td>
+      <td>0.002188</td>
+      <td>0.019694</td>
+      <td>0.096280</td>
     </tr>
     <tr>
-      <th>124</th>
-      <td>171.0</td>
-      <td>41.0</td>
-      <td>118.0</td>
-      <td>74.0</td>
+      <th>41</th>
+      <td>0</td>
+      <td>58</td>
+      <td>76.0</td>
+      <td>10.0</td>
+      <td>61.0</td>
+      <td>36.0</td>
+      <td>1.0</td>
+      <td>0.143694</td>
+      <td>0.150901</td>
+      <td>0.142342</td>
+      <td>0.113514</td>
+      <td>0.085586</td>
+      <td>0.099099</td>
+      <td>0.128829</td>
+      <td>0.136036</td>
+    </tr>
+    <tr>
+      <th>72</th>
+      <td>0</td>
+      <td>82</td>
       <td>6.0</td>
-      <td>0.110052</td>
-      <td>0.103005</td>
-      <td>0.097409</td>
-      <td>0.098653</td>
-      <td>0.131399</td>
-      <td>0.122280</td>
-      <td>0.170570</td>
-      <td>0.166632</td>
+      <td>1.0</td>
+      <td>3.0</td>
+      <td>3.0</td>
+      <td>1.0</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.059829</td>
+      <td>0.512821</td>
+      <td>0.427350</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>200016</th>
+      <td>0</td>
+      <td>9</td>
+      <td>19.0</td>
+      <td>5.0</td>
+      <td>3.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.093284</td>
+      <td>0.201493</td>
+      <td>0.261194</td>
+      <td>0.074627</td>
+      <td>0.070896</td>
+      <td>0.164179</td>
+      <td>0.123134</td>
+      <td>0.011194</td>
     </tr>
   </tbody>
 </table>
@@ -15915,12 +16240,23 @@ dtype: int64
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Now-we-will-add-the-counts-by-day-to-our-features-list">Now we will add the counts by day to our features list<a class="anchor-link" href="#Now-we-will-add-the-counts-by-day-to-our-features-list">&#182;</a></h3><p>This is a bit tricky as we are counting days backwards and not every user had activity on the same days.  Luckily we constructed the data we needed earlier.  That data is sorted by user and by most recent day first.</p>
+<p>Using this we find the most recent day the user had activity and save that.  Then we move to the next most recent day the user had activity and record that in the proper slot.  We continue this until we reach the limit of number of days to keep, which is a parameter.  We set this to 7 days or 1 week which seemed like a good window to look at for changes in user activity.</p>
+<p>We also experimented with having no daily data in our feature set so we created a parameter to do just that.  In the end, we found that the daily data was useful for prediction so we have kept that on.</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[34]:</div>
+<div class="prompt input_prompt">In&nbsp;[35]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># add day counts for each user</span>
+<span class="n">add_days_features</span> <span class="o">=</span> <span class="kc">True</span>
 
 <span class="c1"># configure the number of days we should keep</span>
 <span class="n">days_to_keep</span> <span class="o">=</span> <span class="mi">7</span>
@@ -15953,7 +16289,8 @@ dtype: int64
     
     <span class="c1"># set the counts in our features</span>
     <span class="n">col</span> <span class="o">=</span> <span class="s1">&#39;day_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">day_index</span><span class="p">)</span>
-    <span class="n">features</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;userId&#39;</span><span class="p">],</span> <span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">total_count</span>
+    <span class="k">if</span> <span class="n">add_days_features</span><span class="p">:</span>
+        <span class="n">features</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;userId&#39;</span><span class="p">],</span> <span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">total_count</span>
     
 <span class="n">features</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
@@ -15976,7 +16313,9 @@ dtype: int64
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>thumbs_up          225
+<pre>gender             225
+location           225
+thumbs_up          225
 thumbs_down        225
 add_to_playlist    225
 add_friend         225
@@ -15997,14 +16336,14 @@ day_2              225
 day_6              225
 day_4              225
 dtype: int64
-(225, 20)
+(225, 22)
 </pre>
 </div>
 </div>
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[34]:</div>
+    <div class="prompt output_prompt">Out[35]:</div>
 
 
 
@@ -16027,6 +16366,8 @@ dtype: int64
   <thead>
     <tr style="text-align: right;">
       <th></th>
+      <th>gender</th>
+      <th>location</th>
       <th>thumbs_up</th>
       <th>thumbs_down</th>
       <th>add_to_playlist</th>
@@ -16035,8 +16376,7 @@ dtype: int64
       <th>hour_0</th>
       <th>hour_1</th>
       <th>hour_2</th>
-      <th>hour_3</th>
-      <th>hour_4</th>
+      <th>...</th>
       <th>hour_5</th>
       <th>hour_6</th>
       <th>hour_7</th>
@@ -16070,126 +16410,133 @@ dtype: int64
       <th></th>
       <th></th>
       <th></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>100010</th>
-      <td>17.0</td>
+      <th>100021</th>
+      <td>1</td>
+      <td>26</td>
+      <td>11.0</td>
       <td>5.0</td>
       <td>7.0</td>
-      <td>4.0</td>
-      <td>0.0</td>
-      <td>0.010499</td>
-      <td>0.149606</td>
-      <td>0.133858</td>
-      <td>0.141732</td>
-      <td>0.278215</td>
-      <td>0.270341</td>
-      <td>0.015748</td>
+      <td>7.0</td>
+      <td>2.0</td>
+      <td>0.313480</td>
+      <td>0.200627</td>
+      <td>0.169279</td>
+      <td>...</td>
       <td>0.000000</td>
-      <td>0.086614</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
+      <td>0.078370</td>
+      <td>0.053292</td>
+      <td>0.570533</td>
       <td>0.000000</td>
       <td>0.000000</td>
       <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
     </tr>
     <tr>
-      <th>200002</th>
-      <td>21.0</td>
+      <th>139</th>
+      <td>1</td>
+      <td>56</td>
+      <td>18.0</td>
+      <td>5.0</td>
+      <td>13.0</td>
       <td>6.0</td>
-      <td>8.0</td>
-      <td>4.0</td>
-      <td>0.0</td>
-      <td>0.050633</td>
-      <td>0.000000</td>
-      <td>0.067511</td>
-      <td>0.109705</td>
-      <td>0.122363</td>
-      <td>0.200422</td>
-      <td>0.265823</td>
-      <td>0.183544</td>
-      <td>0.295359</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>125</th>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.000000</td>
-      <td>1.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>1.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>51</th>
-      <td>100.0</td>
-      <td>21.0</td>
-      <td>52.0</td>
-      <td>28.0</td>
       <td>1.0</td>
-      <td>0.129058</td>
-      <td>0.137987</td>
-      <td>0.109984</td>
-      <td>0.100649</td>
-      <td>0.096997</td>
-      <td>0.121347</td>
-      <td>0.155844</td>
-      <td>0.148133</td>
-      <td>0.049107</td>
-      <td>0.048701</td>
+      <td>0.144420</td>
+      <td>0.240700</td>
+      <td>0.293217</td>
+      <td>...</td>
+      <td>0.002188</td>
+      <td>0.019694</td>
+      <td>0.096280</td>
+      <td>0.021882</td>
       <td>0.000000</td>
-      <td>0.104302</td>
-      <td>0.069399</td>
-      <td>0.131899</td>
+      <td>0.000000</td>
       <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.485777</td>
+      <td>0.000000</td>
     </tr>
     <tr>
-      <th>124</th>
-      <td>171.0</td>
-      <td>41.0</td>
-      <td>118.0</td>
-      <td>74.0</td>
-      <td>6.0</td>
-      <td>0.110052</td>
-      <td>0.103005</td>
-      <td>0.097409</td>
-      <td>0.098653</td>
-      <td>0.131399</td>
-      <td>0.122280</td>
-      <td>0.170570</td>
-      <td>0.166632</td>
-      <td>0.000207</td>
-      <td>0.026736</td>
-      <td>0.014508</td>
+      <th>41</th>
+      <td>0</td>
+      <td>58</td>
+      <td>76.0</td>
+      <td>10.0</td>
+      <td>61.0</td>
+      <td>36.0</td>
+      <td>1.0</td>
+      <td>0.143694</td>
+      <td>0.150901</td>
+      <td>0.142342</td>
+      <td>...</td>
+      <td>0.099099</td>
+      <td>0.128829</td>
+      <td>0.136036</td>
+      <td>0.077477</td>
       <td>0.000000</td>
-      <td>0.011192</td>
+      <td>0.015315</td>
+      <td>0.0</td>
+      <td>0.112162</td>
+      <td>0.081982</td>
+      <td>0.014865</td>
+    </tr>
+    <tr>
+      <th>72</th>
+      <td>0</td>
+      <td>82</td>
+      <td>6.0</td>
+      <td>1.0</td>
+      <td>3.0</td>
+      <td>3.0</td>
+      <td>1.0</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>...</td>
+      <td>0.427350</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>1.000000</td>
+      <td>0.000000</td>
       <td>0.000000</td>
       <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>200016</th>
+      <td>0</td>
+      <td>9</td>
+      <td>19.0</td>
+      <td>5.0</td>
+      <td>3.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.093284</td>
+      <td>0.201493</td>
+      <td>0.261194</td>
+      <td>...</td>
+      <td>0.164179</td>
+      <td>0.123134</td>
+      <td>0.011194</td>
+      <td>0.444030</td>
+      <td>0.067164</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
     </tr>
   </tbody>
 </table>
+<p>5 rows × 22 columns</p>
 </div>
 </div>
 
@@ -16202,14 +16549,15 @@ dtype: int64
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Modeling">Modeling<a class="anchor-link" href="#Modeling">&#182;</a></h1><p>Split the full dataset into train, test, and validation sets. Test out several of the machine learning methods you learned. Evaluate the accuracy of the various models, tuning parameters as necessary. Determine your winning model based on test accuracy and report results on the validation set. Since the churned users are a fairly small subset, I suggest using F1 score as the metric to optimize.</p>
-
+<h1 id="CRISP-DM:-Data-Modeling">CRISP-DM: Data Modeling<a class="anchor-link" href="#CRISP-DM:-Data-Modeling">&#182;</a></h1><p>Now we will move on to the data modeling phase of CRISP-DM. Here we will model the data using various models and try to predict using that model.</p>
+<p>Now let us try to predict the churn based on the full feature set using various models.</p>
+<h3 id="Before-predicting,-though,-let-us-complete-normalization-of-the-data-using-scikit-learn.--Normalization-is-important-so-that-one-feature-doesn't-dominate-the-prediction-versus-another.">Before predicting, though, let us complete normalization of the data using scikit learn.  Normalization is important so that one feature doesn't dominate the prediction versus another.<a class="anchor-link" href="#Before-predicting,-though,-let-us-complete-normalization-of-the-data-using-scikit-learn.--Normalization-is-important-so-that-one-feature-doesn't-dominate-the-prediction-versus-another.">&#182;</a></h3>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[35]:</div>
+<div class="prompt input_prompt">In&nbsp;[36]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># normalize all the features</span>
@@ -16239,21 +16587,21 @@ dtype: int64
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>[[ 0.0389016   0.06666667  0.02916667 ...,  0.          0.          0.        ]
- [ 0.04805492  0.08        0.03333333 ...,  0.          0.          0.        ]
- [ 0.          0.          0.         ...,  0.          0.          0.        ]
- ..., 
- [ 0.12585812  0.46666667  0.125      ...,  0.          0.09045597  0.        ]
- [ 0.01601831  0.01333333  0.02083333 ...,  0.          0.          0.        ]
- [ 0.01830664  0.02666667  0.0125     ...,  0.          0.          0.        ]]
+<pre>[[1.         0.2300885  0.02517162 ... 0.         0.         0.        ]
+ [1.         0.49557522 0.04118993 ... 0.         1.         0.        ]
+ [0.         0.51327434 0.17391304 ... 0.31405405 0.16876471 0.02756194]
+ ...
+ [0.         0.27433628 0.12585812 ... 0.         0.09045597 0.        ]
+ [1.         0.73451327 0.00686499 ... 1.         0.         0.        ]
+ [1.         0.15929204 0.04805492 ... 0.         0.         0.        ]]
 225
-[0 0 1 1 0 0 1 0 0 0 0 1 1 0 0 0 1 0 1 0 0 1 1 0 0 1 0 0 0 0 0 0 0 0 1 0 0
- 0 1 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1 0 0 1 1 1 1 0 0 0 0 0 0 1 0 1 0
- 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1 0 0 0 0 0 1 0
- 0 0 0 1 0 0 0 0 0 0 0 1 0 0 0 1 0 1 0 0 0 0 1 1 1 1 0 0 0 0 0 1 1 0 1 0 0
- 1 0 0 0 0 1 0 1 0 0 0 0 1 0 0 0 0 1 0 1 0 1 0 1 0 1 0 0 0 0 0 0 0 0 0 0 0
- 1 0 0 0 0 1 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0
- 1 0 1]
+[1 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0
+ 1 0 0 1 0 0 0 1 0 1 0 1 1 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 1 0 1 1 0 0 0 1 0
+ 0 0 1 0 0 0 1 1 0 0 0 0 0 0 0 1 0 0 0 1 0 0 0 0 0 0 1 0 0 0 0 1 0 1 0 0 1
+ 0 0 1 0 0 1 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 1 1 0 0 0 1 1 0 0 0 0 0
+ 1 1 1 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 1 1 0 0 1 0 0 0 1 1 0 0 0 1 0 1 1 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1 0 1
+ 1 0 0]
 225
 </pre>
 </div>
@@ -16263,9 +16611,17 @@ dtype: int64
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Now-we-will-split-the-data-into-training-and-test-datasets">Now we will split the data into training and test datasets<a class="anchor-link" href="#Now-we-will-split-the-data-into-training-and-test-datasets">&#182;</a></h3><p>We will keep 80% of the data for training and 20% for test.  We will not need the validation data set because for hyperparameter tuning we will be using grid search later on.  Stay tuned.</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[48]:</div>
+<div class="prompt input_prompt">In&nbsp;[37]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># split into training and test sets</span>
@@ -16284,13 +16640,13 @@ dtype: int64
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[48]:</div>
+    <div class="prompt output_prompt">Out[37]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>((180, 20), (45, 20), (180,), (45,))</pre>
+<pre>((180, 22), (45, 22), (180,), (45,))</pre>
 </div>
 
 </div>
@@ -16298,13 +16654,21 @@ dtype: int64
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Let's-try-some-classifiers-and-see-how-they-work-out">Let's try some classifiers and see how they work out<a class="anchor-link" href="#Let's-try-some-classifiers-and-see-how-they-work-out">&#182;</a></h3><p>Logistic regression and SVC were somewhat hopeless with this dataset so we abandoned them early.</p>
+
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[49]:</div>
+<div class="prompt input_prompt">In&nbsp;[38]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="k">import</span> <span class="n">LogisticRegression</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
 
 <span class="n">lrm</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
 <span class="n">y_pred</span> <span class="o">=</span> <span class="n">lrm</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
@@ -16326,88 +16690,45 @@ dtype: int64
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>             precision    recall  f1-score   support
+<pre>              precision    recall  f1-score   support
 
-   no churn       0.83      0.97      0.90        36
-      churn       0.67      0.22      0.33         9
+    no churn       0.79      1.00      0.88        34
+       churn       1.00      0.18      0.31        11
 
-avg / total       0.80      0.82      0.78        45
+   micro avg       0.80      0.80      0.80        45
+   macro avg       0.90      0.59      0.60        45
+weighted avg       0.84      0.80      0.74        45
 
 </pre>
 </div>
 </div>
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[49]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>(array([1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]),
- array([0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0,
-        1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0]))</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[50]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="k">import</span> <span class="n">KNeighborsClassifier</span>
-
-<span class="n">neigh</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">neigh</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-<span class="n">y_pred</span> <span class="o">=</span> <span class="n">neigh</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">target_names</span><span class="o">=</span><span class="n">target_names</span><span class="p">))</span>
-<span class="n">y_pred</span><span class="p">,</span> <span class="n">y_test</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
 
 <div class="output_area">
 
     <div class="prompt"></div>
 
 
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>             precision    recall  f1-score   support
-
-   no churn       0.83      0.94      0.88        36
-      churn       0.50      0.22      0.31         9
-
-avg / total       0.76      0.80      0.77        45
-
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>/home/ec2-user/anaconda3/envs/python3/lib/python3.6/site-packages/sklearn/linear_model/logistic.py:433: FutureWarning: Default solver will be changed to &#39;lbfgs&#39; in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
 </pre>
 </div>
 </div>
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[50]:</div>
+    <div class="prompt output_prompt">Out[38]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>(array([1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0,
-        0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]),
- array([0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0,
-        1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0]))</pre>
+<pre>(array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0,
+        0]),
+ array([0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0,
+        0]))</pre>
 </div>
 
 </div>
@@ -16418,10 +16739,10 @@ avg / total       0.76      0.80      0.77        45
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[51]:</div>
+<div class="prompt input_prompt">In&nbsp;[39]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="k">import</span> <span class="n">SVC</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>
 
 <span class="n">svc</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">()</span>
 <span class="n">svc</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
@@ -16444,12 +16765,14 @@ avg / total       0.76      0.80      0.77        45
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>             precision    recall  f1-score   support
+<pre>              precision    recall  f1-score   support
 
-   no churn       0.80      1.00      0.89        36
-      churn       0.00      0.00      0.00         9
+    no churn       0.76      1.00      0.86        34
+       churn       0.00      0.00      0.00        11
 
-avg / total       0.64      0.80      0.71        45
+   micro avg       0.76      0.76      0.76        45
+   macro avg       0.38      0.50      0.43        45
+weighted avg       0.57      0.76      0.65        45
 
 </pre>
 </div>
@@ -16461,7 +16784,9 @@ avg / total       0.64      0.80      0.71        45
 
 
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>/opt/conda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1135: UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples.
+<pre>/home/ec2-user/anaconda3/envs/python3/lib/python3.6/site-packages/sklearn/svm/base.py:196: FutureWarning: The default value of gamma will change from &#39;auto&#39; to &#39;scale&#39; in version 0.22 to account better for unscaled features. Set gamma explicitly to &#39;auto&#39; or &#39;scale&#39; to avoid this warning.
+  &#34;avoid this warning.&#34;, FutureWarning)
+/home/ec2-user/anaconda3/envs/python3/lib/python3.6/site-packages/sklearn/metrics/classification.py:1143: UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples.
   &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
 </pre>
 </div>
@@ -16469,16 +16794,89 @@ avg / total       0.64      0.80      0.71        45
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[51]:</div>
+    <div class="prompt output_prompt">Out[39]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>(array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]),
- array([0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0,
-        1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0]))</pre>
+<pre>(array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0]),
+ array([0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0,
+        0]))</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="The-next-set-of-classifiers-were-more-promising-so-we-looked-at-each-of-these.">The next set of classifiers were more promising so we looked at each of these.<a class="anchor-link" href="#The-next-set-of-classifiers-were-more-promising-so-we-looked-at-each-of-these.">&#182;</a></h3><p>K Neighbors, Decision Tree, Random Forest, and MLP showed somewhat promising results for prediction.  Looking at the f1 score for the churn use case was our target.  The f1 score ranged from 0.17 to 0.63.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[40]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
+
+<span class="n">neigh</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">neigh</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">neigh</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">target_names</span><span class="o">=</span><span class="n">target_names</span><span class="p">))</span>
+<span class="n">y_pred</span><span class="p">,</span> <span class="n">y_test</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>              precision    recall  f1-score   support
+
+    no churn       0.77      1.00      0.87        34
+       churn       1.00      0.09      0.17        11
+
+   micro avg       0.78      0.78      0.78        45
+   macro avg       0.89      0.55      0.52        45
+weighted avg       0.83      0.78      0.70        45
+
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[40]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0]),
+ array([0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0,
+        0]))</pre>
 </div>
 
 </div>
@@ -16489,10 +16887,10 @@ avg / total       0.64      0.80      0.71        45
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[52]:</div>
+<div class="prompt input_prompt">In&nbsp;[41]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="k">import</span> <span class="n">DecisionTreeClassifier</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>
 
 <span class="n">dtc</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">()</span>
 <span class="n">dtc</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
@@ -16515,12 +16913,14 @@ avg / total       0.64      0.80      0.71        45
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>             precision    recall  f1-score   support
+<pre>              precision    recall  f1-score   support
 
-   no churn       0.86      0.86      0.86        36
-      churn       0.44      0.44      0.44         9
+    no churn       0.83      0.88      0.86        34
+       churn       0.56      0.45      0.50        11
 
-avg / total       0.78      0.78      0.78        45
+   micro avg       0.78      0.78      0.78        45
+   macro avg       0.69      0.67      0.68        45
+weighted avg       0.77      0.78      0.77        45
 
 </pre>
 </div>
@@ -16528,16 +16928,18 @@ avg / total       0.78      0.78      0.78        45
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[52]:</div>
+    <div class="prompt output_prompt">Out[41]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>(array([0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0,
-        0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0]),
- array([0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0,
-        1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0]))</pre>
+<pre>(array([0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0,
+        1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0,
+        0]),
+ array([0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0,
+        0]))</pre>
 </div>
 
 </div>
@@ -16548,10 +16950,10 @@ avg / total       0.78      0.78      0.78        45
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[53]:</div>
+<div class="prompt input_prompt">In&nbsp;[42]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="k">import</span> <span class="n">RandomForestClassifier</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
 
 <span class="n">rfc</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">()</span>
 <span class="n">rfc</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
@@ -16574,12 +16976,14 @@ avg / total       0.78      0.78      0.78        45
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>             precision    recall  f1-score   support
+<pre>              precision    recall  f1-score   support
 
-   no churn       0.83      0.97      0.90        36
-      churn       0.67      0.22      0.33         9
+    no churn       0.79      0.97      0.87        34
+       churn       0.67      0.18      0.29        11
 
-avg / total       0.80      0.82      0.78        45
+   micro avg       0.78      0.78      0.78        45
+   macro avg       0.73      0.58      0.58        45
+weighted avg       0.76      0.78      0.73        45
 
 </pre>
 </div>
@@ -16587,16 +16991,30 @@ avg / total       0.80      0.82      0.78        45
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[53]:</div>
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>/home/ec2-user/anaconda3/envs/python3/lib/python3.6/site-packages/sklearn/ensemble/forest.py:246: FutureWarning: The default value of n_estimators will change from 10 in version 0.20 to 100 in 0.22.
+  &#34;10 in version 0.20 to 100 in 0.22.&#34;, FutureWarning)
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[42]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>(array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0,
-        0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0]),
- array([0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0,
-        1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0]))</pre>
+<pre>(array([0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0]),
+ array([0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0,
+        0]))</pre>
 </div>
 
 </div>
@@ -16607,10 +17025,10 @@ avg / total       0.80      0.82      0.78        45
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[72]:</div>
+<div class="prompt input_prompt">In&nbsp;[43]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.neural_network</span> <span class="k">import</span> <span class="n">MLPClassifier</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.neural_network</span> <span class="kn">import</span> <span class="n">MLPClassifier</span>
 
 <span class="n">mlpc</span> <span class="o">=</span> <span class="n">MLPClassifier</span><span class="p">(</span><span class="n">hidden_layer_sizes</span><span class="o">=</span><span class="p">(</span><span class="mi">200</span><span class="p">,),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">,</span> <span class="n">solver</span><span class="o">=</span><span class="s1">&#39;lbfgs&#39;</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">3000</span><span class="p">)</span>
 <span class="n">mlpc</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
@@ -16634,30 +17052,34 @@ avg / total       0.80      0.82      0.78        45
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>             precision    recall  f1-score   support
+<pre>              precision    recall  f1-score   support
 
-   no churn       0.87      0.75      0.81        36
-      churn       0.36      0.56      0.43         9
+    no churn       0.86      0.94      0.90        34
+       churn       0.75      0.55      0.63        11
 
-avg / total       0.77      0.71      0.73        45
+   micro avg       0.84      0.84      0.84        45
+   macro avg       0.81      0.74      0.77        45
+weighted avg       0.84      0.84      0.84        45
 
-0.434782608696
+0.631578947368421
 </pre>
 </div>
 </div>
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[72]:</div>
+    <div class="prompt output_prompt">Out[43]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>(array([1, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1,
-        0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0]),
- array([0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0,
-        1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0]))</pre>
+<pre>(array([0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,
+        1]),
+ array([0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0,
+        0]))</pre>
 </div>
 
 </div>
@@ -16665,33 +17087,81 @@ avg / total       0.77      0.71      0.73        45
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Now-let's-run-grid-searches-for-all-the-promising-models.">Now let's run grid searches for all the promising models.<a class="anchor-link" href="#Now-let's-run-grid-searches-for-all-the-promising-models.">&#182;</a></h3><p>In order to do this we needed to understand the parameters for each of these models.  The below reference material was extremely useful to doing this:</p>
+<p><a href="https://scikit-learn.org/stable/modules/generated/sklearn.neural_network.MLPClassifier.html">https://scikit-learn.org/stable/modules/generated/sklearn.neural_network.MLPClassifier.html</a>
+<a href="https://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeClassifier.html">https://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeClassifier.html</a>
+<a href="https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html">https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html</a>
+<a href="https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html">https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html</a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Create-a-helper-function-to-run-the-grid-search">Create a helper function to run the grid search<a class="anchor-link" href="#Create-a-helper-function-to-run-the-grid-search">&#182;</a></h3><p>This will be run repeatedly on each of the different promising models.</p>
+
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[73]:</div>
+<div class="prompt input_prompt">In&nbsp;[44]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="k">import</span> <span class="n">GridSearchCV</span>
-
-<span class="c1"># create f1 scorer to maximize churn prediction</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># create f1 scorer to maximize churn prediction</span>
 <span class="n">f1</span> <span class="o">=</span> <span class="n">make_scorer</span><span class="p">(</span><span class="n">f1_score</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s1">&#39;binary&#39;</span><span class="p">)</span>
 
-<span class="c1"># perform grid search on MLP classifier</span>
+<span class="k">def</span> <span class="nf">run_grid_search</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">    For the given model and parameters, run a grid search and show the results.</span>
+<span class="sd">    Parameters: </span>
+<span class="sd">    model (estimator): The classification estimator to use for the grid search.</span>
+<span class="sd">    params (dict):  The parameter grid to search on.</span>
+<span class="sd">  </span>
+<span class="sd">    Returns: </span>
+<span class="sd">    &lt;Nothing&gt; The grid search prediction results will be shown.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cv</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">param_grid</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="n">f1</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+    <span class="n">cv</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">cv</span><span class="o">.</span><span class="n">best_params_</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">target_names</span><span class="o">=</span><span class="n">target_names</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">f1_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">y_pred</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">y_test</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="K-Neighbors-Grid-Search">K Neighbors Grid Search<a class="anchor-link" href="#K-Neighbors-Grid-Search">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[45]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># perform grid search on K Neighbors</span>
 <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;max_iter&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">3000</span><span class="p">,</span> <span class="mi">5000</span><span class="p">],</span>
-    <span class="s1">&#39;activation&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;logistic&#39;</span><span class="p">,</span> <span class="s1">&#39;tanh&#39;</span><span class="p">,</span> <span class="s1">&#39;relu&#39;</span><span class="p">],</span>
-    <span class="s1">&#39;warm_start&#39;</span><span class="p">:</span> <span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">],</span>
-    <span class="s1">&#39;hidden_layer_sizes&#39;</span><span class="p">:</span> <span class="p">[(</span><span class="mi">200</span><span class="p">,),</span> <span class="p">(</span><span class="mi">100</span><span class="p">,),</span> <span class="p">(</span><span class="mi">300</span><span class="p">,),</span> <span class="p">(</span><span class="mi">50</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="p">(</span><span class="mi">50</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span> <span class="p">(</span><span class="mi">200</span><span class="p">,</span><span class="mi">20</span><span class="p">)]</span>
+    <span class="s1">&#39;weights&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;uniform&#39;</span><span class="p">,</span> <span class="s1">&#39;distance&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;algorithm&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="s1">&#39;ball_tree&#39;</span><span class="p">,</span> <span class="s1">&#39;kd_tree&#39;</span><span class="p">,</span> <span class="s1">&#39;brute&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;p&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
 <span class="p">}</span>
 
-<span class="n">mlpc</span> <span class="o">=</span> <span class="n">MLPClassifier</span><span class="p">(</span><span class="n">solver</span><span class="o">=</span><span class="s1">&#39;lbfgs&#39;</span><span class="p">)</span>
-<span class="n">cv</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">mlpc</span><span class="p">,</span> <span class="n">param_grid</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="n">f1</span><span class="p">)</span>
-<span class="n">cv</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-<span class="n">y_pred</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">cv</span><span class="o">.</span><span class="n">best_params_</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">target_names</span><span class="o">=</span><span class="n">target_names</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">f1_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
-<span class="n">y_pred</span><span class="p">,</span> <span class="n">y_test</span>
+<span class="n">knc</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">run_grid_search</span><span class="p">(</span><span class="n">knc</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -16701,6 +17171,114 @@ avg / total       0.77      0.71      0.73        45
 <div class="output_wrapper">
 <div class="output">
 
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Fitting 3 folds for each of 24 candidates, totalling 72 fits
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>[Parallel(n_jobs=-1)]: Using backend LokyBackend with 8 concurrent workers.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>{&#39;algorithm&#39;: &#39;auto&#39;, &#39;p&#39;: 1, &#39;weights&#39;: &#39;distance&#39;}
+              precision    recall  f1-score   support
+
+    no churn       0.80      0.97      0.88        34
+       churn       0.75      0.27      0.40        11
+
+   micro avg       0.80      0.80      0.80        45
+   macro avg       0.78      0.62      0.64        45
+weighted avg       0.79      0.80      0.76        45
+
+0.39999999999999997
+[0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0
+ 0 1 0 0 0 0 0 0]
+[0 0 0 0 1 0 0 1 0 0 1 1 0 0 1 1 0 1 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 1 0
+ 1 1 0 0 0 0 0 0]
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>[Parallel(n_jobs=-1)]: Done  34 tasks      | elapsed:    1.2s
+[Parallel(n_jobs=-1)]: Done  72 out of  72 | elapsed:    1.3s finished
+/home/ec2-user/anaconda3/envs/python3/lib/python3.6/site-packages/sklearn/model_selection/_search.py:841: DeprecationWarning: The default of the `iid` parameter will change from True to False in version 0.22 and will be removed in 0.24. This will change numeric results when test-set sizes are unequal.
+  DeprecationWarning)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="MLP-Grid-Search">MLP Grid Search<a class="anchor-link" href="#MLP-Grid-Search">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[46]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># perform grid search on MLP classifier</span>
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;max_iter&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">3000</span><span class="p">,</span> <span class="mi">5000</span><span class="p">],</span>
+    <span class="s1">&#39;activation&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;logistic&#39;</span><span class="p">,</span> <span class="s1">&#39;tanh&#39;</span><span class="p">,</span> <span class="s1">&#39;relu&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;warm_start&#39;</span><span class="p">:</span> <span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">],</span>
+    <span class="s1">&#39;hidden_layer_sizes&#39;</span><span class="p">:</span> <span class="p">[(</span><span class="mi">200</span><span class="p">,),</span> <span class="p">(</span><span class="mi">100</span><span class="p">,),</span> <span class="p">(</span><span class="mi">300</span><span class="p">,),</span> <span class="p">(</span><span class="mi">50</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="p">(</span><span class="mi">50</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span> <span class="p">(</span><span class="mi">200</span><span class="p">,</span><span class="mi">20</span><span class="p">)]</span>
+<span class="p">}</span>
+
+<span class="n">mlpc</span> <span class="o">=</span> <span class="n">MLPClassifier</span><span class="p">(</span><span class="n">solver</span><span class="o">=</span><span class="s1">&#39;lbfgs&#39;</span><span class="p">)</span>
+<span class="n">run_grid_search</span><span class="p">(</span><span class="n">mlpc</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>[Parallel(n_jobs=-1)]: Using backend LokyBackend with 8 concurrent workers.
+</pre>
+</div>
+</div>
 
 <div class="output_area">
 
@@ -16719,7 +17297,11 @@ avg / total       0.77      0.71      0.73        45
 
 
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>[Parallel(n_jobs=1)]: Done 252 out of 252 | elapsed:  1.7min finished
+<pre>[Parallel(n_jobs=-1)]: Done  34 tasks      | elapsed:    2.3s
+[Parallel(n_jobs=-1)]: Done 184 tasks      | elapsed:    8.0s
+[Parallel(n_jobs=-1)]: Done 252 out of 252 | elapsed:    9.3s finished
+/home/ec2-user/anaconda3/envs/python3/lib/python3.6/site-packages/sklearn/model_selection/_search.py:841: DeprecationWarning: The default of the `iid` parameter will change from True to False in version 0.22 and will be removed in 0.24. This will change numeric results when test-set sizes are unequal.
+  DeprecationWarning)
 </pre>
 </div>
 </div>
@@ -16730,63 +17312,49 @@ avg / total       0.77      0.71      0.73        45
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;activation&#39;: &#39;logistic&#39;, &#39;hidden_layer_sizes&#39;: (200, 20), &#39;max_iter&#39;: 3000, &#39;warm_start&#39;: False}
-             precision    recall  f1-score   support
+<pre>{&#39;activation&#39;: &#39;logistic&#39;, &#39;hidden_layer_sizes&#39;: (50, 20), &#39;max_iter&#39;: 3000, &#39;warm_start&#39;: True}
+              precision    recall  f1-score   support
 
-   no churn       0.89      0.86      0.87        36
-      churn       0.50      0.56      0.53         9
+    no churn       0.79      0.79      0.79        34
+       churn       0.36      0.36      0.36        11
 
-avg / total       0.81      0.80      0.80        45
+   micro avg       0.69      0.69      0.69        45
+   macro avg       0.58      0.58      0.58        45
+weighted avg       0.69      0.69      0.69        45
 
-0.526315789474
+0.36363636363636365
+[0 0 0 1 1 0 1 0 0 0 1 0 0 0 0 1 0 1 0 0 1 0 1 0 0 0 0 0 0 1 0 1 0 0 0 0 0
+ 0 0 0 0 0 0 0 1]
+[0 0 0 0 1 0 0 1 0 0 1 1 0 0 1 1 0 1 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 1 0
+ 1 1 0 0 0 0 0 0]
 </pre>
 </div>
 </div>
 
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[73]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>(array([1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]),
- array([0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0,
-        1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0]))</pre>
-</div>
-
-</div>
-
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Decision-Tree-Grid-Search">Decision Tree Grid Search<a class="anchor-link" href="#Decision-Tree-Grid-Search">&#182;</a></h3>
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[74]:</div>
+<div class="prompt input_prompt">In&nbsp;[47]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="k">import</span> <span class="n">GridSearchCV</span>
-
-<span class="c1"># create f1 scorer to maximize churn prediction</span>
-<span class="n">f1</span> <span class="o">=</span> <span class="n">make_scorer</span><span class="p">(</span><span class="n">f1_score</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s1">&#39;binary&#39;</span><span class="p">)</span>
-
-<span class="c1"># perform grid search on Decision Tree</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># perform grid search on Decision Tree</span>
 <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s1">&#39;criterion&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;gini&#39;</span><span class="p">,</span> <span class="s1">&#39;entropy&#39;</span><span class="p">],</span>
     <span class="s1">&#39;splitter&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="s1">&#39;random&#39;</span><span class="p">],</span>
 <span class="p">}</span>
 
 <span class="n">dtc</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">()</span>
-<span class="n">cv</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">dtc</span><span class="p">,</span> <span class="n">param_grid</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="n">f1</span><span class="p">)</span>
-<span class="n">cv</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-<span class="n">y_pred</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">cv</span><span class="o">.</span><span class="n">best_params_</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">target_names</span><span class="o">=</span><span class="n">target_names</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">f1_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
-<span class="n">y_pred</span><span class="p">,</span> <span class="n">y_test</span>
+<span class="n">run_grid_search</span><span class="p">(</span><span class="n">dtc</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -16804,15 +17372,21 @@ avg / total       0.81      0.80      0.80        45
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Fitting 3 folds for each of 4 candidates, totalling 12 fits
-{&#39;criterion&#39;: &#39;gini&#39;, &#39;splitter&#39;: &#39;best&#39;}
-             precision    recall  f1-score   support
+{&#39;criterion&#39;: &#39;entropy&#39;, &#39;splitter&#39;: &#39;best&#39;}
+              precision    recall  f1-score   support
 
-   no churn       0.86      0.83      0.85        36
-      churn       0.40      0.44      0.42         9
+    no churn       0.86      0.91      0.89        34
+       churn       0.67      0.55      0.60        11
 
-avg / total       0.77      0.76      0.76        45
+   micro avg       0.82      0.82      0.82        45
+   macro avg       0.76      0.73      0.74        45
+weighted avg       0.81      0.82      0.82        45
 
-0.421052631579
+0.6
+[0 0 0 0 1 0 0 1 0 0 1 0 0 0 1 0 0 1 0 0 1 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 1 0 0 0 0 0 0]
+[0 0 0 0 1 0 0 1 0 0 1 1 0 0 1 1 0 1 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 1 0
+ 1 1 0 0 0 0 0 0]
 </pre>
 </div>
 </div>
@@ -16823,42 +17397,32 @@ avg / total       0.77      0.76      0.76        45
 
 
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>[Parallel(n_jobs=1)]: Done  12 out of  12 | elapsed:    0.0s finished
+<pre>[Parallel(n_jobs=-1)]: Using backend LokyBackend with 8 concurrent workers.
+[Parallel(n_jobs=-1)]: Done  10 out of  12 | elapsed:    0.0s remaining:    0.0s
+[Parallel(n_jobs=-1)]: Done  12 out of  12 | elapsed:    0.0s finished
+/home/ec2-user/anaconda3/envs/python3/lib/python3.6/site-packages/sklearn/model_selection/_search.py:841: DeprecationWarning: The default of the `iid` parameter will change from True to False in version 0.22 and will be removed in 0.24. This will change numeric results when test-set sizes are unequal.
+  DeprecationWarning)
 </pre>
 </div>
 </div>
 
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[74]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>(array([0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0,
-        0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0]),
- array([0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0,
-        1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0]))</pre>
-</div>
-
-</div>
-
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Random-Forest-Grid-Search">Random Forest Grid Search<a class="anchor-link" href="#Random-Forest-Grid-Search">&#182;</a></h3>
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[75]:</div>
+<div class="prompt input_prompt">In&nbsp;[48]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="k">import</span> <span class="n">GridSearchCV</span>
-
-<span class="c1"># create f1 scorer to maximize churn prediction</span>
-<span class="n">f1</span> <span class="o">=</span> <span class="n">make_scorer</span><span class="p">(</span><span class="n">f1_score</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s1">&#39;binary&#39;</span><span class="p">)</span>
-
-<span class="c1"># perform grid search on Decision Tree</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># perform grid search on Decision Tree</span>
 <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s1">&#39;criterion&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;gini&#39;</span><span class="p">,</span> <span class="s1">&#39;entropy&#39;</span><span class="p">],</span>
     <span class="s1">&#39;n_estimators&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">500</span><span class="p">],</span>
@@ -16866,13 +17430,7 @@ avg / total       0.77      0.76      0.76        45
 <span class="p">}</span>
 
 <span class="n">rfc</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">()</span>
-<span class="n">cv</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">rfc</span><span class="p">,</span> <span class="n">param_grid</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="n">f1</span><span class="p">)</span>
-<span class="n">cv</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-<span class="n">y_pred</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">cv</span><span class="o">.</span><span class="n">best_params_</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">target_names</span><span class="o">=</span><span class="n">target_names</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">f1_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
-<span class="n">y_pred</span><span class="p">,</span> <span class="n">y_test</span>
+<span class="n">run_grid_search</span><span class="p">(</span><span class="n">rfc</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -16890,15 +17448,6 @@ avg / total       0.77      0.76      0.76        45
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Fitting 3 folds for each of 12 candidates, totalling 36 fits
-{&#39;bootstrap&#39;: False, &#39;criterion&#39;: &#39;gini&#39;, &#39;n_estimators&#39;: 100}
-             precision    recall  f1-score   support
-
-   no churn       0.85      0.94      0.89        36
-      churn       0.60      0.33      0.43         9
-
-avg / total       0.80      0.82      0.80        45
-
-0.428571428571
 </pre>
 </div>
 </div>
@@ -16909,25 +17458,38 @@ avg / total       0.80      0.82      0.80        45
 
 
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>[Parallel(n_jobs=1)]: Done  36 out of  36 | elapsed:   18.0s finished
+<pre>[Parallel(n_jobs=-1)]: Using backend LokyBackend with 8 concurrent workers.
+[Parallel(n_jobs=-1)]: Done  21 out of  36 | elapsed:    1.2s remaining:    0.8s
+[Parallel(n_jobs=-1)]: Done  36 out of  36 | elapsed:    2.1s finished
+/home/ec2-user/anaconda3/envs/python3/lib/python3.6/site-packages/sklearn/model_selection/_search.py:841: DeprecationWarning: The default of the `iid` parameter will change from True to False in version 0.22 and will be removed in 0.24. This will change numeric results when test-set sizes are unequal.
+  DeprecationWarning)
 </pre>
 </div>
 </div>
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[75]:</div>
+    <div class="prompt"></div>
 
 
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>{&#39;bootstrap&#39;: False, &#39;criterion&#39;: &#39;gini&#39;, &#39;n_estimators&#39;: 300}
+              precision    recall  f1-score   support
 
+    no churn       0.83      1.00      0.91        34
+       churn       1.00      0.36      0.53        11
 
-<div class="output_text output_subarea output_execute_result">
-<pre>(array([1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0,
-        0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0]),
- array([0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0,
-        1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0]))</pre>
+   micro avg       0.84      0.84      0.84        45
+   macro avg       0.91      0.68      0.72        45
+weighted avg       0.87      0.84      0.82        45
+
+0.5333333333333333
+[0 0 0 0 0 0 0 1 0 0 1 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 1 0 0 0 0 0 0]
+[0 0 0 0 1 0 0 1 0 0 1 1 0 0 1 1 0 1 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 1 0
+ 1 1 0 0 0 0 0 0]
+</pre>
 </div>
-
 </div>
 
 </div>
@@ -16937,7 +17499,10 @@ avg / total       0.80      0.82      0.80        45
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Final-Steps">Final Steps<a class="anchor-link" href="#Final-Steps">&#182;</a></h1><p>Clean up your code, adding comments and renaming variables to make the code easier to read and maintain. Refer to the Spark Project Overview page and Data Scientist Capstone Project Rubric to make sure you are including all components of the capstone project and meet all expectations. Remember, this includes thorough documentation in a README file in a Github repository, as well as a web app or blog post.</p>
+<h1 id="CRISP-DM:-Evaluate-the-Results">CRISP-DM: Evaluate the Results<a class="anchor-link" href="#CRISP-DM:-Evaluate-the-Results">&#182;</a></h1><p>In this final phase of CRISP-DM for this project, we will evaluate the results of the models we created using the Sparkify events log.</p>
+<p>Looking at the grid search of the models we selected, Decision Tree was the clear winner with an F1 score of 0.60.  Second best was the MLP classifier with 0.41.  Using the hyperparameter tuned Decision Tree we had 67% precision and 55% recall.</p>
+<p>This would be useful to Sparkify to help identify the users that may be churning so offers can be made to retain them.  Even in the worst case that the prediction is wrong, providing an offer to the user will not result in future churn and may help retain them in the future as well.</p>
+<p>This project explored a large data set and how to process it effectively for use with machine learning.  The ever present churn problem was tackled for the fictional Sparkify music streaming company.  It was eye opening just how data can be prepared in so many ways and so many models can be applied for prediction.  In truth, many, many combinations were tried before the final results were obtained.  Trial and error is surely a key part of data science along with diligent work analyzing the data itself.</p>
 
 </div>
 </div>
